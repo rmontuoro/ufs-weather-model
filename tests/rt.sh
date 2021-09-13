@@ -239,7 +239,7 @@ elif [[ $MACHINE_ID = hera.* ]]; then
   module load ecflow
   ECFLOW_START=ecflow_start.sh
 
-  QUEUE=batch 
+  QUEUE=batch
   COMPILE_QUEUE=batch
 
   #ACCNR=fv3-cpu
@@ -312,8 +312,8 @@ elif [[ $MACHINE_ID = cheyenne.* ]]; then
   ECFLOW_START=/glade/p/ral/jntp/tools/miniconda3/4.8.3/envs/ufs-weather-model/bin/ecflow_start.sh
   ECF_PORT=$(( $(id -u) + 1500 ))
 
-  QUEUE=economy
-  COMPILE_QUEUE=economy
+  QUEUE=regular
+  COMPILE_QUEUE=regular
   PARTITION=
   dprefix=/glade/scratch
   DISKNM=/glade/p/ral/jntp/GMTB/ufs-weather-model/RT
@@ -332,7 +332,7 @@ elif [[ $MACHINE_ID = stampede.* ]]; then
   PARTITION=
   ACCNR=TG-EES200015
   dprefix=$SCRATCH/ufs-weather-model/run
-  DISKNM=/work/07736/minsukji/stampede2/ufs-weather-model/RT
+  DISKNM=/work2/07736/minsukji/stampede2/ufs-weather-model/RT
   STMP=$dprefix
   PTMP=$dprefix
   SCHEDULER=slurm
@@ -415,7 +415,7 @@ if [[ $TESTS_FILE =~ '35d' ]]; then
   TEST_35D=true
 fi
 
-BL_DATE=20210729
+BL_DATE=20210820
 if [[ $MACHINE_ID = hera.* ]] || [[ $MACHINE_ID = orion.* ]] || [[ $MACHINE_ID = cheyenne.* ]] || [[ $MACHINE_ID = gaea.* ]] || [[ $MACHINE_ID = jet.* ]]; then
   RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
 else
@@ -565,9 +565,16 @@ EOF
   elif [[ $MACHINE_ID = gaea.* ]]; then
     QUEUE=normal
   elif [[ $MACHINE_ID = cheyenne.* ]]; then
-    QUEUE=economy
+    QUEUE=regular
   else
     die "ecFlow is not supported on this machine $MACHINE_ID"
+  fi
+
+else
+
+  if [[ $MACHINE_ID = hera.* ]] && [[ $HOSTNAME = hecflow* ]]; then
+    echo "ERROR: To run without using ECFlow on Hera, please do not use ecflow node."
+    exit 1
   fi
 
 fi
