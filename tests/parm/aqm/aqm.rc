@@ -27,9 +27,9 @@ ctm_aod: true
 ctm_pmdiag: true
 
 #
-#  Input emissions
+#  Input emissions & output products
 #
-emission_sources: anthro bio fire
+emission_sources: anthro bio fire prod
 
 #
 #  Anthropogenic
@@ -297,4 +297,28 @@ fire_species::
     UNR     0.0100516  CO          KG/M2/S
     XYL     0.0002964  CO          KG/M2/S
     FRP     1000000    MeanFRP     1
+::
+
+#
+#  Output products (NetCDF only)
+#
+prod_type: product
+
+prod_file: aqm.prod.nc
+
+prod_frequency: hourly
+
+# Set to true to update NetCDF file on disk at each write (no buffering)
+# Default is false (buffering)
+prod_sync: true
+
+prod_species::
+    O3      ozone       instantaneous
+    O3      o3min       min
+    O3      o3max       max
+    O3      o3ave       average
+    PM2.5   pm25        instantaneous
+    PM2.5   pm25min     min
+    PM2.5   pm25max     max
+    PM2.5   pm25ave     average
 ::
