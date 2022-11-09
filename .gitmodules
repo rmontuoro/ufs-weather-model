@@ -46,3 +46,7 @@
   path = AQM
   url = https://github.com/rmontuoro/AQM
   branch = feature/aqio-component
+[submodule "AQIO"]
+  path = AQIO
+  url = https://github.com/NOAA-SWPC/SWIO
+  branch = ops/wcoss2
