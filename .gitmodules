@@ -36,8 +36,8 @@
   branch = develop
 [submodule "GOCART"]
   path = GOCART
-  url = https://github.com/GEOS-ESM/GOCART
-  branch = develop
+  url = https://github.com/rmontuoro/GOCART
+  branch = gefs/ep4
 [submodule "AQM"]
   path = AQM
   url = https://github.com/NOAA-EMC/AQM
