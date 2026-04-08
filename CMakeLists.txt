@@ -19,7 +19,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules/Modules)
 ###############################################################################
 
 # Valid applications and choices
-list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM ATML ATMF ATMMPAS LND LND-LM4 S2S S2SL S2SA S2SW S2SWA S2SWL S2SWAL ATM_DS2S ATM_DS2S-PCICE HAFS HAFSW HAFS-MOM6 HAFS-MOM6W HAFS-ALL NG-GODAS)
+list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM ATML ATMF ATMMPAS LND LND-LM4 MPAS-A S2S S2SL S2SA S2SW S2SWA S2SWL S2SWAL ATM_DS2S ATM_DS2S-PCICE HAFS HAFSW HAFS-MOM6 HAFS-MOM6W HAFS-ALL NG-GODAS)
 set(APP NONE CACHE BOOL "Application Name")
 if(NOT (APP IN_LIST VALID_APPS))
   message(FATAL_ERROR "${APP} is not a valid application.\nValid Applications are: ${VALID_APPS}")
@@ -28,6 +28,7 @@ endif()
 set(FMS             OFF CACHE BOOL "Enable FMS")
 set(FV3             OFF CACHE BOOL "Enable FV3 dycore")
 set(MPAS            OFF CACHE BOOL "Enable MPAS dycore")
+set(UFS_MPAS        OFF CACHE BOOL "Enable MPAS-A")
 set(AQM             OFF CACHE BOOL "Enable AQM")
 set(UFS_GOCART      OFF CACHE BOOL "Enable GOCART")
 set(MOM6            OFF CACHE BOOL "Enable MOM6")
@@ -49,6 +50,7 @@ message("")
 message("FMS .............. ${FMS}")
 message("FV3 .............. ${FV3}")
 message("MPAS ............. ${MPAS}")
+message("UFS_MPAS ......... ${UFS_MPAS}")
 message("AQM .............. ${AQM}")
 message("GOCART ........... ${UFS_GOCART}")
 message("MOM6 ............. ${MOM6}")
@@ -223,6 +225,10 @@ if (FV3 OR MPAS)
   add_subdirectory(UFSATM)
 endif()
 
+if (UFS_MPAS)
+  add_subdirectory(UFS-MPAS)
+endif()
+
 ###############################################################################
 ### AQM
 ###############################################################################
@@ -354,6 +360,12 @@ if(MPAS)
   add_dependencies(ufs ufsatm_mpas)
   list(APPEND _ufs_defs_private FRONT_UFSATM=ufsatm_cap_mod)
   list(APPEND _ufs_libs_public ufsatm_mpas)
+endif()
+
+if(UFS_MPAS)
+  add_dependencies(ufs ufs-mpas)
+  list(APPEND _ufs_defs_private FRONT_UFS_MPAS=ufs_mpas_cap)
+  list(APPEND _ufs_libs_public ufs-mpas)
 endif()
 
 if(MOM6)

@@ -50,6 +50,11 @@ if(APP MATCHES "^(ATM|ATMW|ATMWM|ATMAQ|ATML|ATMF|ATML-LM4|ATMMPAS)$")
   endif()
 endif()
 
+if(APP MATCHES "MPAS-A")
+  set(UFS_MPAS   ON  CACHE BOOL "Enable MPAS-Atmosphere"     FORCE)
+  message("Configuring UFS app in Atmosphere with MPAS-A mode")
+endif()
+
 if(APP MATCHES "^(NG-GODAS)$")
   set(CMEPS      ON  CACHE BOOL "Enable CMEPS"               FORCE)
   set(STOCH_PHYS ON  CACHE BOOL "Enable Stochastic Physics"  FORCE)

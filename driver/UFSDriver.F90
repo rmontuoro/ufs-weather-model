@@ -48,6 +48,9 @@
 #ifdef FRONT_UFSATM
       use FRONT_UFSATM,     only: UFSATM_SS => SetServices
 #endif
+#ifdef FRONT_UFS_MPAS
+      use FRONT_UFS_MPAS,   only: UFS_MPAS_SS => SetServices
+#endif
 #ifdef FRONT_CDEPS_DATM
       use FRONT_CDEPS_DATM, only: DATM_SS  => SetServices
 #endif
@@ -363,6 +366,14 @@
 #ifdef FRONT_UFSATM
           if (trim(model) == "mpas" .or. trim(model) == "fv3") then
             call NUOPC_DriverAddComp(driver, trim(prefix), UFSATM_SS, &
+              info=info, petList=petList, comp=comp, rc=rc)
+            if (ChkErr(rc,__LINE__,u_FILE_u)) return
+            found_comp = .true.
+          end if
+#endif
+#ifdef FRONT_UFS_MPAS
+          if (trim(model) == "mpas-a") then
+            call NUOPC_DriverAddComp(driver, trim(prefix), UFS_MPAS_SS, &
               info=info, petList=petList, comp=comp, rc=rc)
             if (ChkErr(rc,__LINE__,u_FILE_u)) return
             found_comp = .true.
