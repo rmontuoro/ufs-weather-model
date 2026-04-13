@@ -52,7 +52,7 @@ endif()
 
 if(APP MATCHES "MPAS-A")
   set(UFS_MPAS   ON  CACHE BOOL "Enable MPAS-Atmosphere"     FORCE)
-  message("Configuring UFS app in Atmosphere with MPAS-A mode")
+  message("Configuring UFS app as standalone MPAS-Atmosphere")
 endif()
 
 if(APP MATCHES "^(NG-GODAS)$")
