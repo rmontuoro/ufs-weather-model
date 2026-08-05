@@ -54,3 +54,7 @@
   path = UFS-MPAS
   url = https://github.com/rmontuoro/UFS-MPAS
   branch = develop
+[submodule "CATChem"]
+  path = CATChem
+  url = https://github.com/ufs-community/CATChem
+  branch = main
